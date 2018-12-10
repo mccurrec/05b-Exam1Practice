@@ -103,7 +103,7 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -115,12 +115,7 @@ def problem2a(circle, rectangle, window):
     rectangle.attach_to(window)
     window.render()
     window.continue_on_mouse_click()
-    if rectangle.corner_2.x > rectangle.corner_1.x:
-        line = rg.Line(rg.Point(rectangle.corner_2.x, rectangle.corner_1.y), rg.Point(rectangle.corner_1.x,
-                                                                                 rectangle.corner_2.y))
-    else:
-         line = rg.Line(rg.Point(rectangle.corner_1.x, rectangle.corner_2.y), rg.Point(rectangle.corner_2.x,
-                                                                               rectangle.corner_1.y))
+    line = rg.Line(rectangle.get_upper_right_corner(),rectangle.get_lower_left_corner())
     line.arrow = 'last'
     line.attach_to(window)
     window.render()
@@ -192,7 +187,7 @@ def problem2b(rect, n, delta, win):
       :type win:    rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -201,6 +196,21 @@ def problem2b(rect, n, delta, win):
     #    TIME ESTIMATE:   15 to 25 minutes.
     # -------------------------------------------------------------------------
     rect.attach_to(win)
+    height = rect.get_height()
+    width = rect.get_width()
+    center = rect.get_center()
+    for _ in range(n-1):
+        height = height + 2 * delta
+        width = width + 2 * delta
+        corner_1_x = center.x - width / 2
+        corner_1_y = center.y - height / 2
+        corner_2_x = center.x + width / 2
+        corner_2_y = center.y + height / 2
+        corner_1 = rg.Point(corner_1_x, corner_1_y)
+        corner_2 = rg.Point(corner_2_x, corner_2_y)
+        rectangle = rg.Rectangle(corner_1, corner_2)
+        rectangle.attach_to(win)
+    win.render()
 
 
 
